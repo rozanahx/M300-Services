@@ -1,27 +1,25 @@
-# M300
 M300 - LB2 Dokumentation 
 ===
 
 
 ## Inhaltsverzeichnis
-- [M300](#M300)
-- [M300 - LB2 Dokumentation](#M300---LB2-Dokumentation)
-  - [Inhaltsverzeichnis](#Inhaltsverzeichnis)
-- [K1](#K1)
-  - [VirtualBox](#VirtualBox)
-  - [Vagrant](#Vagrant)
-  - [Visual Studio Code](#Visual-Studio-Code)
-  - [Git-Client](#Git-Client)
-  - [SSH-Key](#SSH-Key)
-- [K2](#K2)
-  - [GitHub Account](#GitHub-Account)
-  - [Persönlicher Wissenststand](#Pers%C3%B6nlicher-Wissenststand)
+- [M300 - LB2 Dokumentation](#m300---lb2-dokumentation)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+- [K2](#k2)
+  - [GitHub Account](#github-account)
+  - [Markdown](#Markdown)
+  - [Persönlicher Wissenststand](#Persönlicher Wissenststand)
 	-[Linux](#Linux)
 	-[Vagrant](#Vagrant)
 	-[Virtualisierung](#Virtualisierung)
 	-[Systemsicherheit](#Systemsicherheit)
+- [K1](#k1)
+  - [VirtualBox](#virtualbox)
+  - [Vagrant](#vagrant)
+  - [Visual Studio Code](#visual-studio-code)
+  - [Git-Client](#git-client)
+  - [SSH-Key](#ssh-key)
 - [K3](#k3)
-	
   - [Testen](#testen)
     - [Apache](#apache)
     - [Users and Groups](#users-and-groups)
@@ -34,6 +32,48 @@ M300 - LB2 Dokumentation
 - [K5](#k5)
   - [Reflexion](#reflexion)
 _
+
+
+K2
+======
+## GitHub Account
+> [⇧ Nach oben](#inhaltsverzeichnis)
+
+Zuerst sollte ein Github Account erstellt werden:
+1. Auf [GitHub.com](https://github.com) gehen
+2. Auf Sign up klicken und ein Benutzerkonto erstellen (Alle Angaben eingeben)
+4. Auf Create an Account klicken
+5. E-Mail zur Verifizierung des Kontos bestätigen und anschliessend auf GitHub anmelden.
+
+## Reporitory erstellen
+
+ 
+ 
+ 
+ 
+ 
+
+
+## Persönlicher Wissenststand
+> [⇧ Nach oben](#inhaltsverzeichnis)
+
+Linux
+
+Linux ist ein kostenloses Betriebssystem, welches immer wieder weiterentwickelt wird. Die neusten Versionen sind immer Online. 
+Ich bin nicht so ein Linux fan, aber was mir ziemlich gut an das Betriebssystem gefällt, ist die eindeutige Fehlermeldungen.
+Ich habe schon sehr oft mit Linux gearbeitet, jedoch ist Linux wirklich nicht meine Stärke. 
+
+Virtualisierung
+
+Vagrant
+Vagrant kannte ich vor diesem Modul überhaupt nicht, jetzt kenne ich es. Ich kenne mitlerweile verschiedene Vagrantbefehle 
+und kann auch nun Vagrant Files erstellen.
+
+Markdown
+Systemsicherheit
+
+
+
 
 K1
 ======
@@ -237,34 +277,152 @@ Um Zugriff via SSH auf die VM aufzubauen, muss man bloss einen kurzen Befehl ein
 vagrant ssh
 ```
 
-K2
+
+
+K3
 ======
-## GitHub Account
+
 > [⇧ Nach oben](#inhaltsverzeichnis)
+ 
+## VM aus Vagrant Cloud
+- Folgende vorgefertigte VMs aus der Vagrant Cloud habe ich genutzt:
 
-Zuerst sollte ein Github Account erstellt werden:
-1. Auf [GitHub.com](https://github.com) gehen
-2. Auf Sign up klicken
-3. Username, E-mail und Passwort eingeben sowie Aufgabe zum verifizieren lösen
-4. Auf Create an Account klicken
+ubuntu/xenial/64 (https://app.vagrantup.com/ubuntu/boxes/xenial64) 
+ ```Shell
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+end
+  ```
+  
+debian/jessie64 (https://app.vagrantup.com/debian/boxes/jessie64)
+ ```Shell
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/jessie64"
+end
+```
 
 
-## Persönlicher Wissenststand
+
+  ## Vagrant Befehle
+  
+  | Command | Funktion |
+| --- | --- |
+| `vagrant up` | erstellt eine VM mithilfe des Vagrantfiles |
+| `vagrant init` | erstellt Vagrantfile |
+| `vagrant-ssh` | SSH-Verbindung zur Vagrant-VM |
+| `vagrant halt` | fährt die Vagrant-VM herunter |
+| `vagrant destroy` | fährt die Vagrant VM herunter & zerstört diese anschliessen |
+| `vagrant box add` | Fügt eine Vagrant-Box aus der Vagrant-Cloud hinzu |
+| `vagrant box list` | Zeigt eine Liste aller Vagrant-Boxen welche in der Vagrant-Umgebung vorhanden sind |
+
+
+## Markdown
+Das Projekt wurde als Markdown und im Github Dokumentiert.
+  ```Shell
++-----------------------+
+| Websererver:          |
++-----------------------+
+| IP-Adresse: 10.0.2.15 |
++-----------------------+
+| Port: 80, 22          |
++-----------------------+
+| NAT: 8080             |
++-----------------------+
+```
+
+### Apache
+- Ich habe den Apache getestet, indem ich auf meinem Client die IP-Adresse der VM eingegeben habe. 
+- Zudem habe ich das index.html geändert und geschaut ob es die Änderungen übernommen hat.
+- Wenn man den folgenden Befehl eingibt, wird das index.html in der Shell angezeigt
+    ```Shell
+    curl -f [ip adress]
+    ```
+
+### Users and Groups
+- Mit diesem Befehl habe ich alle Benutzer in der VM angezeigt und habe dann gesehen, das meine beiden User erstellt worden sind.
+    ```Shell
+    cut -d: -f1 /etc/passwd
+    ```
+- Mit diesem Befehl zeige ich die Gruppen in der VM an und sehe dann, ob die neue Group erstellt wurde.
+    ```Shell
+    cut -d: -f1 /etc/group
+    ```
+-  Die beiden Befehle oben kann man in einen zusammenfassen, indem man den User mit der dazugehörigen Group anzeigt:
+    ```Shell
+    cut -d: -f1 /etc/passwd | xargs groups
+    ```
+
+- Um zu testen, ob das Passwort geändert wurde, habe ich mich mit einem zuvor erstellten User eingeloggt.
+    ```Shell
+    su user01
+    password: **
+    ```
+
+### Ports
+- Um zu testen, ob es die Portkonfiguration übernommen hat,    habe ich folgenden Befehl eingegeben und gesehen, dass die im File angegebenen Ports offen sind.
+    ```Shell
+    netstat -an |grep LISTEN 
+    ```
+- In diesem Fall habe ich Port 80 für die Webseite und Port 22 für die SSH-Verbindung geöffnet. Dies kann man auch testen, indem man die Webseite aufruft und eine Verbindung via SSH aufbaut. 
+
+K4
+======
+
 > [⇧ Nach oben](#inhaltsverzeichnis)
+ 
+## Firewall
 
-Linux
+  Ich habe beim aufsetzen automatisch Firewall Regeln erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
 
-Linux ist ein kostenloses Betriebssystem, welches immer wieder weiterentwickelt wird. Die neusten Versionen sind immer Online. 
-Ich bin nicht so ein Linux fan, aber was mir ziemlich gut an das Betriebssystem gefällt, ist die eindeutige Fehlermeldungen.
-Ich habe schon sehr oft mit Linux gearbeitet, jedoch ist Linux wirklich nicht meine Stärke. 
+1. Vagrantfile öffnen
+2. Folgende Zeilen einfügen:
+    ```Shell
+      sudo apt-get install ufw
+      sudo ufw allow 80/tcp
+      sudo ufw allow 22/tcp
+      sudo ufw allow out 22/tcp 
+      sudo ufw enable
+     ```
 
-Virtualisierung
+## Reverse-Proxy
+Ich habe beim aufsetzen automatisch einen Reverse-Proxy installiert, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
+1. Vagrantfile öffnen
+2. Folgende Zeilen einfügen:
+    ```Shell
+    sudo apt-get -y install libapache2-mod-proxy-html
+    sudo apt-get -y install libxml2-dev
 
+    sudo a2enmod proxy
+    sudo a2enmod proxy_html
+    sudo a2enmod proxy_http
+     ```
 
+## Benutzer und Rechtevergabe
 
-Vagrant
-Vagrant kannte ich vor diesem Modul überhaupt nicht, jetzt kenne ich es. Ich kenne mitlerweile verschiedene Vagrantbefehle 
-und kann auch nun Vagrant Files erstellen.
+Ich habe beim aufsetzen automatisch User mit Passwort erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
 
-Markdown
-Systemsicherheit
+1. Vagrantfile öffnen
+2. Folgende Zeilen einfügen:
+    ```Shell
+      sudo groupadd testadmin
+      sudo useradd user1 -g testadmin -m -s /bin/bash 
+      sudo useradd user2 -g testadmin -m -s /bin/bash 
+      sudo chpasswd <<<user1:abc123	
+      sudo chpasswd <<<user2:abc123
+    ```
+## SSH
+
+Ich habe beim aufsetzen automatisch ein SSH Zugang erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
+
+1. Vagrantfile öffnen
+2. Folgende Zeilen einfügen:
+    ```Shell
+      sudo apt-get -y install openssh-server
+    ```
+
+K5
+======
+
+> [⇧ Nach oben](#inhaltsverzeichnis)
+ 
+## Reflexion
