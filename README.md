@@ -3,35 +3,30 @@ M300 - LB2 Dokumentation
 
 
 ## Inhaltsverzeichnis
-- [M300 - LB2 Dokumentation](#m300---lb2-dokumentation)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-- [K2](#k2)
-  - [GitHub Account](#github-account)
-  - [Markdown](#Markdown)
-  - [Persönlicher Wissenststand](#Persönlicher Wissenststand)
-	-[Linux](#Linux)
-	-[Vagrant](#Vagrant)
-	-[Virtualisierung](#Virtualisierung)
-	-[Systemsicherheit](#Systemsicherheit)
-- [K1](#k1)
-  - [VirtualBox](#virtualbox)
-  - [Vagrant](#vagrant)
-  - [Visual Studio Code](#visual-studio-code)
-  - [Git-Client](#git-client)
-  - [SSH-Key](#ssh-key)
-- [K3](#k3)
-  - [Testen](#testen)
-    - [Apache](#apache)
-    - [Users and Groups](#users-and-groups)
-    - [Ports](#ports)
-- [K4](#k4)
-  - [Firewall](#firewall)
-  - [Reverse-Proxy](#reverse-proxy)
-  - [Benutzer und Rechtevergabe](#benutzer-und-rechtevergabe)
-  - [SSH](#ssh)
-- [K5](#k5)
-  - [Reflexion](#reflexion)
-_
+- [M300 - LB2 Dokumentation](#M300---LB2-Dokumentation)
+  - [Inhaltsverzeichnis](#Inhaltsverzeichnis)
+- [K2](#K2)
+  - [GitHub Account](#GitHub-Account)
+  - [Reporitory erstellen](#Reporitory-erstellen)
+  - [Persönlicher Wissenststand](#Pers%C3%B6nlicher-Wissenststand)
+- [K1](#K1)
+  - [VirtualBox](#VirtualBox)
+  - [Vagrant](#Vagrant)
+  - [Visual Studio Code](#Visual-Studio-Code)
+  - [Git-Client](#Git-Client)
+  - [SSH-Key](#SSH-Key)
+- [K3](#K3)
+  - [VM aus Vagrant Cloud](#VM-aus-Vagrant-Cloud)
+    - [Apache](#Apache)
+    - [Users and Groups](#Users-and-Groups)
+- [K4](#K4)
+  - [Firewall](#Firewall)
+  - [Reverse-Proxy](#Reverse-Proxy)
+  - [Benutzer und Rechtevergabe](#Benutzer-und-Rechtevergabe)
+  - [SSH](#SSH)
+- [K5](#K5)
+  - [Reflexion](#Reflexion)
+
 
 
 K2
@@ -46,33 +41,33 @@ Zuerst sollte ein Github Account erstellt werden:
 5. E-Mail zur Verifizierung des Kontos bestätigen und anschliessend auf GitHub anmelden.
 
 ## Reporitory erstellen
-
+1. Anmelden unter www.github.com
+2. Innerhalb der Willkommens-Seite auf Start a project klicken
+3. Unter Repository name einen Name definieren 
+4. Radio-Button bei Public belassen
+5. Haken bei Initialize this repository with a README setzen
+6. Auf Create repository klicken
  
- 
- 
- 
- 
-
 
 ## Persönlicher Wissenststand
 > [⇧ Nach oben](#inhaltsverzeichnis)
 
 Linux
-
 Linux ist ein kostenloses Betriebssystem, welches immer wieder weiterentwickelt wird. Die neusten Versionen sind immer Online. 
 Ich bin nicht so ein Linux fan, aber was mir ziemlich gut an das Betriebssystem gefällt, ist die eindeutige Fehlermeldungen.
 Ich habe schon sehr oft mit Linux gearbeitet, jedoch ist Linux wirklich nicht meine Stärke. 
 
 Virtualisierung
+Eine VM aufzusetzen war für mich nie ein Problem. Ich musste das so oft in der Schule, sowie auch bei den ÜK's machen.
+Jedoch habe ich VM Ware Workstation benutzt und noch nie Virtual Box. Seit diesem Modul kenne ich jetzt Virtual Box gut und ich
+finde dieses Tool sogar besser als VM Ware Workstation. 
 
 Vagrant
 Vagrant kannte ich vor diesem Modul überhaupt nicht, jetzt kenne ich es. Ich kenne mitlerweile verschiedene Vagrantbefehle 
 und kann auch nun Vagrant Files erstellen.
 
-Markdown
 Systemsicherheit
-
-
+Eine Firewall ist immer gut.
 
 
 K1
@@ -163,7 +158,7 @@ Apache Webserver automatisiert aufsetzen
 1. Git Bash Terminal öffnen
 2. In das LB2-Verzeichnis wechseln:
     ```Shell
-      $ cd C:\Users\hisa_r\M300_Vagrant\.vagrant\machines\default\virtualbox
+      $ cd C\Users\hisa_r\M300_Vagrant\.vagrant\machines\default\virtualbox
      ```
 3. VM erstellen und starten:
     ```Shell
@@ -278,14 +273,13 @@ vagrant ssh
 ```
 
 
-
 K3
 ======
 
 > [⇧ Nach oben](#inhaltsverzeichnis)
  
 ## VM aus Vagrant Cloud
-- Folgende vorgefertigte VMs aus der Vagrant Cloud habe ich genutzt:
+- Folgende vorgefertigte VMs aus der Vagrant Cloud wurde benutzt:
 
 ubuntu/xenial/64 (https://app.vagrantup.com/ubuntu/boxes/xenial64) 
  ```Shell
@@ -300,7 +294,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/jessie64"
 end
 ```
-
 
 
   ## Vagrant Befehle
@@ -339,31 +332,11 @@ Das Projekt wurde als Markdown und im Github Dokumentiert.
     ```
 
 ### Users and Groups
-- Mit diesem Befehl habe ich alle Benutzer in der VM angezeigt und habe dann gesehen, das meine beiden User erstellt worden sind.
-    ```Shell
-    cut -d: -f1 /etc/passwd
-    ```
-- Mit diesem Befehl zeige ich die Gruppen in der VM an und sehe dann, ob die neue Group erstellt wurde.
-    ```Shell
-    cut -d: -f1 /etc/group
-    ```
--  Die beiden Befehle oben kann man in einen zusammenfassen, indem man den User mit der dazugehörigen Group anzeigt:
+-  Mit diesem Befehl werden alle Gruppen und Benutzer angezeigt
     ```Shell
     cut -d: -f1 /etc/passwd | xargs groups
     ```
 
-- Um zu testen, ob das Passwort geändert wurde, habe ich mich mit einem zuvor erstellten User eingeloggt.
-    ```Shell
-    su user01
-    password: **
-    ```
-
-### Ports
-- Um zu testen, ob es die Portkonfiguration übernommen hat,    habe ich folgenden Befehl eingegeben und gesehen, dass die im File angegebenen Ports offen sind.
-    ```Shell
-    netstat -an |grep LISTEN 
-    ```
-- In diesem Fall habe ich Port 80 für die Webseite und Port 22 für die SSH-Verbindung geöffnet. Dies kann man auch testen, indem man die Webseite aufruft und eine Verbindung via SSH aufbaut. 
 
 K4
 ======
@@ -399,20 +372,23 @@ Ich habe beim aufsetzen automatisch einen Reverse-Proxy installiert, indem ich d
 
 ## Benutzer und Rechtevergabe
 
-Ich habe beim aufsetzen automatisch User mit Passwort erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
+Im nächsten Schritt wird eine Gruppe, inklusive Benutzer mit Passwort erstellt. Dies geht wie folgt:
 
 1. Vagrantfile öffnen
 2. Folgende Zeilen einfügen:
     ```Shell
+    #Gruppe testadmin erstellen
       sudo groupadd testadmin
-      sudo useradd user1 -g testadmin -m -s /bin/bash 
-      sudo useradd user2 -g testadmin -m -s /bin/bash 
-      sudo chpasswd <<<user1:abc123	
-      sudo chpasswd <<<user2:abc123
+    #Benutzer erstellen
+      sudo useradd user1 -g testadmin1 -m -s /bin/bash 
+      sudo useradd user2 -g testadmin2 -m -s /bin/bash 
+    #Passwort festlegen
+      sudo chpasswd <<<testadmin1:test123
+      sudo chpasswd <<<testadmin2:test123
     ```
 ## SSH
 
-Ich habe beim aufsetzen automatisch ein SSH Zugang erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:
+SSH Zugang erstellen, indem man folgende Zeilen ins Vagrantfile einfügt: 
 
 1. Vagrantfile öffnen
 2. Folgende Zeilen einfügen:
@@ -426,3 +402,4 @@ K5
 > [⇧ Nach oben](#inhaltsverzeichnis)
  
 ## Reflexion
+Ich hatte noch nie etwas von Vagrant gehört. Deswegen hatte ich am Anfang noch etwas Mühe. Spannend finde ich, dass man eine VM erstellen kann mit einem Text-File nach seinen Bedürfnissen? Das ist sehr praktisch und zeitsparend. Neu war auch für mich den Funktionsumfang von GitHub in Kombination mit Markdown den ich nicht kannte. Da für mich alles sehr neu war, musste ich mich in einer ersten Phase erst einmal in die einzelnen Bereiche einarbeiten und Schritt für Schritt die Anweisungen befolgen . Am Schluss hatte ich ein bisschen Zeitdruck. Ich bin sehr dankbar dafür das der Lehrer sehr viel Gedult mit mir hatte, da ich die LB2 sehr spät abgegeben habe. Das ist nicht natürlich nicht selbstverständlich. 
